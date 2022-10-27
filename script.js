@@ -36,17 +36,13 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild(renderer.domElement);
 
-var boxGeo= new THREE.BoxGeometry(1,1,1);
-var boxMat=new THREE.MeshBasicMaterial({color: 0x6c83f4});
-var box = new THREE.Mesh(boxGeo,boxMat);
-
-var sphGeo= new THREE.SphereGeometry(1,32,32);
-var sphMat=new THREE.MeshBasicMaterial({color: 0xff0000});
-var sph = new THREE.Mesh(sphGeo,sphMat);
-sph.position.set(0 , 2 , 0);
+const geometry = new THREE.TorusGeometry( 2 , 0.4 , 16, 100 );
+const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+const torus = new THREE.Mesh( geometry, material );
+torus.rotation.x = Math.PI/2 ;
 
 var axisHelper = new THREE.AxesHelper(5);
-scene.add(axisHelper , box , sph);
+scene.add(axisHelper ,torus);
 
 function render() {
 requestAnimationFrame(render);
