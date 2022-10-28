@@ -28,21 +28,26 @@
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight, 0.1,1000);
-camera.position.x = 5;
-camera.position.y = 5;
-camera.position.z = 5;
+camera.position.set(5 , 5 , 5);
 camera.lookAt(scene.position); //Exécutin du positionnement avant la rotation camera
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild(renderer.domElement);
 
-const geometry = new THREE.TorusGeometry( 2 , 0.4 , 16, 100 );
-const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
-const torus = new THREE.Mesh( geometry, material );
-torus.rotation.x = Math.PI/2 ;
+var lightAmb = new THREE.AmbientLight (0xffffff) ;
+var lightSpot = new THREE.SpotLight (0xffffff, 1, 100, Math.PI/4) ;
+var lightpoi = new THREE.PointLight(0xffffff , 1 , 1000)
+lightpoi.position.set(0 , 5 , 0)
+lightSpot.position.set(0 , 1 , 5)
 
+
+const geometry = new THREE.SphereGeometry( 2 , 32 , 32 );
+const material = new THREE.MeshPhongMaterial( { color: 0xffff00 } );
+const sphere = new THREE.Mesh( geometry, material );
+
+lightSpot.target = sphere
 var axisHelper = new THREE.AxesHelper(5);
-scene.add(axisHelper ,torus);
+scene.add(axisHelper , sphere , lightAmb , lightpoi , lightSpot);
 
 function render() {
 requestAnimationFrame(render);
