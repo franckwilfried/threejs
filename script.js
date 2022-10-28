@@ -34,7 +34,7 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild(renderer.domElement);
 
-var lightAmb = new THREE.AmbientLight (0xffffff) ;
+// var lightAmb = new THREE.AmbientLight (0xffffff) ;
 var lightSpot = new THREE.SpotLight (0xffffff, 1, 100, Math.PI/4) ;
 var lightpoi = new THREE.PointLight(0xffffff , 1 , 1000)
 lightpoi.position.set(0 , 5 , 0)
@@ -42,12 +42,12 @@ lightSpot.position.set(0 , 1 , 5)
 
 
 const geometry = new THREE.SphereGeometry( 2 , 32 , 32 );
-const material = new THREE.MeshPhongMaterial( { color: 0xffff00 } );
+const material = new THREE.MeshPhongMaterial( { color: 0xffff00 , flatShading : true} );
 const sphere = new THREE.Mesh( geometry, material );
 
 lightSpot.target = sphere
 var axisHelper = new THREE.AxesHelper(5);
-scene.add(axisHelper , sphere , lightAmb , lightpoi , lightSpot);
+scene.add(axisHelper , sphere , lightpoi , lightSpot);
 
 function render() {
 requestAnimationFrame(render);
